@@ -194,12 +194,32 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);z-index:2;
 }
 .tag.left{left:14px}
-.tag.right{right:14px;color:var(--text)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green-300);box-shadow:0 0 10px var(--green-300)}
 .dot.idle{background:var(--text-faint);box-shadow:none}
 .dot.live{animation:blink 1.6s ease-in-out infinite}
 @keyframes blink{50%{opacity:.35}}
 @media (prefers-reduced-motion:reduce){.dot.live{animation:none}}
+
+/* ---- edge rule switch (top right of the board) ---- */
+.modes{
+  position:absolute;top:12px;right:12px;z-index:4;
+  display:flex;gap:2px;padding:4px;border-radius:999px;
+  background:var(--pane-2);border:1px solid var(--edge);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:inset 0 1px 0 var(--edge-hi);
+}
+.modes button{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  font-size:.74rem;font-weight:400;color:var(--text-dim);
+  transition:color .18s,background .18s,box-shadow .18s;
+}
+.modes button:hover{color:var(--text)}
+.modes button[aria-checked="true"]{
+  color:var(--text);
+  background:rgba(156,207,168,.2);
+  box-shadow:inset 0 1px 0 var(--edge-hi),0 0 0 1px rgba(156,207,168,.28);
+}
 
 .board-dock{
   position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
@@ -221,7 +241,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
 }
 .overlay[hidden]{display:none}
 .overlay h2{margin:0;font-size:1.6rem;font-weight:600;letter-spacing:-.02em}
-.overlay p{margin:0;color:var(--text-dim);font-size:.88rem;max-width:26ch;line-height:1.55}
+.overlay p{margin:0;color:var(--text-dim);font-size:.88rem;max-width:28ch;line-height:1.55}
 .cta{
   margin-top:4px;padding:13px 26px;border-radius:999px;font-weight:600;font-size:.92rem;
   color:#0c1f14;background:linear-gradient(150deg,var(--green-100),var(--green-300) 68%,var(--green-500));
@@ -279,6 +299,10 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   .keys{display:none}
   .hero h1{font-size:clamp(1.9rem,9vw,2.6rem)}
 }
+@media (max-width:420px){
+  .modes button{padding:6px 9px}
+  .tag{padding:7px 10px}
+}
 @media (max-height:760px) and (min-width:901px){
   .hero .lede{display:none}
 }
@@ -309,12 +333,10 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     <stop offset="1" stop-color="#e8ae67" stop-opacity="0"/></radialGradient>
  </defs>
 
- <!-- shell -->
  <rect width="1200" height="800" fill="url(#g-wall)"/>
  <rect y="430" width="1200" height="370" fill="url(#g-floor)"/>
  <rect y="424" width="1200" height="10" fill="#2b211a"/>
 
- <!-- window -->
  <rect x="826" y="64" width="322" height="330" rx="10" fill="#2e251e"/>
  <rect x="840" y="78" width="294" height="302" rx="6" fill="url(#g-sky)"/>
  <rect x="984" y="78" width="7" height="302" fill="#2e251e" opacity=".85"/>
@@ -324,17 +346,14 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
  <rect x="1134" y="48" width="58" height="372" rx="12" fill="#443730"/>
  <ellipse cx="960" cy="560" rx="300" ry="150" fill="url(#g-spill)"/>
 
- <!-- framed print -->
  <rect x="118" y="110" width="168" height="206" rx="6" fill="#3a2f27"/>
  <rect x="130" y="122" width="144" height="182" rx="3" fill="#6d7f6a"/>
  <circle cx="202" cy="186" r="30" fill="#d7c08d" opacity=".8"/>
  <path d="M130 268c30-30 52-12 74 4 20 14 44 10 70-12v44H130z" fill="#455a49"/>
 
- <!-- rug -->
  <ellipse cx="500" cy="672" rx="452" ry="118" fill="#5a4938" opacity=".75"/>
  <ellipse cx="500" cy="672" rx="372" ry="92" fill="none" stroke="#7a6550" stroke-width="5" opacity=".45"/>
 
- <!-- sofa -->
  <ellipse cx="470" cy="618" rx="300" ry="26" fill="#140e09" opacity=".4"/>
  <rect x="232" y="356" width="476" height="176" rx="34" fill="url(#g-sofa)"/>
  <rect x="258" y="378" width="212" height="132" rx="20" fill="url(#g-cush)"/>
@@ -346,13 +365,10 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
  <rect x="670" y="420" width="82" height="164" rx="34" fill="#436c58"/>
  <rect x="216" y="574" width="20" height="34" rx="6" fill="#33231a"/>
  <rect x="704" y="574" width="20" height="34" rx="6" fill="#33231a"/>
- <!-- pillows -->
  <rect x="296" y="404" width="96" height="96" rx="20" fill="#b7d3bb" opacity=".75" transform="rotate(-8 344 452)"/>
  <rect x="556" y="404" width="96" height="96" rx="20" fill="#e2c493" opacity=".7" transform="rotate(7 604 452)"/>
- <!-- throw over the right arm -->
  <path d="M676 424h74c8 0 12 6 10 14l-26 130c-2 10-10 14-18 12l-44-12z" fill="#9dc3a6" opacity=".75"/>
 
- <!-- coffee table -->
  <ellipse cx="520" cy="716" rx="176" ry="22" fill="#140e09" opacity=".35"/>
  <rect x="378" y="640" width="290" height="28" rx="13" fill="#7a5c3d"/>
  <rect x="392" y="668" width="16" height="48" rx="6" fill="#5c4229"/>
@@ -360,7 +376,6 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
  <ellipse cx="470" cy="636" rx="40" ry="14" fill="#9a8161"/>
  <rect x="556" y="606" width="56" height="34" rx="4" fill="#8d9c86"/>
 
- <!-- plant -->
  <ellipse cx="118" cy="716" rx="86" ry="20" fill="#140e09" opacity=".35"/>
  <path d="M64 596h112l-16 118H80z" fill="#8a6440"/>
  <rect x="58" y="580" width="124" height="26" rx="8" fill="#a07a52"/>
@@ -370,7 +385,6 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
  <ellipse cx="48" cy="546" rx="22" ry="54" fill="url(#g-leaf)" transform="rotate(-52 48 546)"/>
  <ellipse cx="192" cy="550" rx="21" ry="52" fill="url(#g-leaf)" transform="rotate(48 192 550)"/>
 
- <!-- floor lamp -->
  <ellipse cx="792" cy="690" rx="48" ry="13" fill="#2e241c"/>
  <rect x="788" y="356" width="8" height="330" fill="#40332a"/>
  <path d="M748 340h88l24 66H724z" fill="#f0cb95"/>
@@ -400,19 +414,31 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   <section class="hero">
     <p class="eyebrow" id="greeting">Good evening</p>
     <h1>A quiet room,<em>one restless snake</em></h1>
-    <p class="lede">It loops the rug while the lamp is on. Five orbs at a time, and at 100 points the furniture gets in the way.</p>
+    <p class="lede">Choose Walls to end the run at the edge, or Wrap to slip out one side and back in the other. At 100 points the furniture gets in the way.</p>
     <div class="keys">
       <div class="key" data-key="left">&#8592;</div>
       <div class="key" data-key="up">&#8593;</div>
       <div class="key" data-key="down">&#8595;</div>
       <div class="key" data-key="right">&#8594;</div>
       <div class="key" data-key="space">Space</div>
+      <div class="key" data-key="mode">M</div>
     </div>
   </section>
 
   <section class="board pane">
     <div class="tag left"><span class="dot idle" id="status-dot"></span><span id="status-text">Standby</span></div>
-    <div class="tag right" id="length-tag">Length 3</div>
+
+    <div class="modes" role="radiogroup" aria-label="Edge rule">
+      <button role="radio" data-mode="walls" aria-checked="true" title="Touching an edge ends the run">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+        Walls
+      </button>
+      <button role="radio" data-mode="wrap" aria-checked="false" title="Leave one edge, come back on the opposite edge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h15M15 5l3 3-3 3"/><path d="M21 16H6M9 13l-3 3 3 3"/></svg>
+        Wrap
+      </button>
+    </div>
+
     <canvas id="board" width="400" height="400"></canvas>
 
     <div class="board-dock">
@@ -442,7 +468,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
       </div>
       <div class="meta">
         <b id="best">0</b>
-        <small>Best so far</small>
+        <small id="best-label">Best in Walls</small>
       </div>
     </div>
 
@@ -475,8 +501,9 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   const canvas=$('board'),ctx=canvas.getContext('2d');
   const overlay=$('overlay'),oTitle=$('overlay-title'),oText=$('overlay-text'),startBtn=$('start-btn');
   const statusDot=$('status-dot'),statusText=$('status-text');
-  const el={score:$('score'),best:$('best'),length:$('length'),level:$('level'),pace:$('pace'),
-            fill:$('goal-fill'),goalLabel:$('goal-label'),goalCount:$('goal-count'),lenTag:$('length-tag')};
+  const el={score:$('score'),best:$('best'),bestLabel:$('best-label'),length:$('length'),level:$('level'),pace:$('pace'),
+            fill:$('goal-fill'),goalLabel:$('goal-label'),goalCount:$('goal-count')};
+  const modeBtns=document.querySelectorAll('.modes button');
 
   let cell=20,size=400;
   let snake,prev,dir,nextDir,queue=[],foods=[],walls=[],score,orbs,level=1,best=0;
@@ -484,16 +511,65 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   let pops=[];
   let sound=false,audio=null;
   let shake=0;
+  let mode='walls';   // 'walls' = edge ends the run, 'wrap' = edge sends you to the opposite side
 
   const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
-  const levelBase =n=>Math.max(62,BASE-(n-1)*26);   // step pace at the start of a level
-  const levelFloor=n=>Math.max(44,MIN -(n-1)*8);    // fastest that level ever gets
+  const levelBase =n=>Math.max(62,BASE-(n-1)*26);
+  const levelFloor=n=>Math.max(44,MIN -(n-1)*8);
   const levelName =n=>n===1?'Warm-up':n===2?'Hard':n===3?'Brutal':n===4?'Savage':'Level '+n;
-  const levelWalls=n=>n<2?0:Math.min(26,4+(n-2)*5); // blocks on the board
+  const levelWalls=n=>n<2?0:Math.min(26,4+(n-2)*5);
 
-  try{ best=parseInt(localStorage.getItem('snake-best')||'0',10)||0; }catch(e){}
-  el.best.textContent=best;
+  /* ---------- mode + best (kept separately per mode) ---------- */
+  try{ const m=localStorage.getItem('snake-mode'); if(m==='walls'||m==='wrap') mode=m; }catch(e){}
+
+  function loadBest(){
+    best=0;
+    try{
+      let v=localStorage.getItem('snake-best-'+mode);
+      if(v===null && mode==='walls') v=localStorage.getItem('snake-best'); // carry over the old single best
+      best=parseInt(v||'0',10)||0;
+    }catch(e){}
+    el.best.textContent=best;
+    el.bestLabel.textContent=mode==='wrap'?'Best in Wrap':'Best in Walls';
+  }
+  function saveBest(){
+    try{ localStorage.setItem('snake-best-'+mode,String(best)); }catch(e){}
+  }
+
+  function readyText(){
+    return mode==='wrap'
+      ? 'Edges are open: leave on one side, come back on the other. Only blocks and your own tail end the run.'
+      : 'Steer with the arrow keys. Take the orbs, stay off the walls.';
+  }
+
+  function paintModeButtons(){
+    modeBtns.forEach(b=>b.setAttribute('aria-checked',String(b.dataset.mode===mode)));
+  }
+
+  function setMode(m){
+    if(m!=='walls'&&m!=='wrap') return;
+    flashKey('mode');
+    if(m===mode) return;
+    mode=m;
+    try{ localStorage.setItem('snake-mode',mode); }catch(e){}
+    paintModeButtons();
+    loadBest();
+    // switching rules starts a fresh run so scores stay fair
+    state='idle';
+    reset();
+    oTitle.textContent=mode==='wrap'?'Wrap mode':'Walls mode';
+    oText.textContent=readyText();
+    startBtn.textContent='Start the run';
+    overlay.hidden=false;
+    setStatus('Standby','idle');
+    setPlayIcon(false);
+    blip(mode==='wrap'?740:460,.12,'sine');
+  }
+
+  loadBest();
+  paintModeButtons();
+  oText.textContent=readyText();
 
   const h=new Date().getHours();
   $('greeting').textContent = h<12 ? 'Good morning' : h<18 ? 'Good afternoon' : 'Good evening';
@@ -531,6 +607,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     dir={x:1,y:0};nextDir={x:1,y:0};queue=[];
     score=0;orbs=0;level=1;speed=levelBase(1);progress=1;pops=[];
     walls=[];foods=[];fillFoods();sync();
+    const sp=$('btn-speed'); if(sp) sp.classList.remove('on');
   }
 
   function spawnOrb(){
@@ -545,12 +622,19 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     const spot=free[Math.floor(Math.random()*free.length)];
     foods.push({x:spot.x,y:spot.y,phase:Math.random()*Math.PI*2,born:0});
   }
+
+  // distance that respects wrapping, so blocks never appear right in front of a snake about to come through an edge
+  function gap(a,b,len){
+    const d=Math.abs(a-b);
+    return mode==='wrap'?Math.min(d,len-d):d;
+  }
+
   function addWalls(count){
     const head=snake[0];
     for(let k=0;k<count;k++){
       const free=[];
       for(let y=1;y<ROWS-1;y++)for(let x=1;x<COLS-1;x++){
-        if(Math.max(Math.abs(x-head.x),Math.abs(y-head.y))<4)continue;  // breathing room
+        if(Math.max(gap(x,head.x,COLS),gap(y,head.y,ROWS))<4)continue;
         if(snake.some(s=>s.x===x&&s.y===y))continue;
         if(foods.some(f=>f.x===x&&f.y===y))continue;
         if(walls.some(w=>w.x===x&&w.y===y))continue;
@@ -570,7 +654,6 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   function sync(){
     el.score.textContent=score;
     el.length.textContent=snake.length;
-    el.lenTag.textContent='Length '+snake.length;
     el.level.textContent=level;
 
     const into=score-(level-1)*TARGET;
@@ -596,8 +679,8 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     if(state==='idle'||state==='over'){start();}
     else if(state==='levelup'){resume();}
     const ref=queue.length?queue[queue.length-1]:dir;
-    if(d.x===-ref.x&&d.y===-ref.y)return;      // no instant reversal
-    if(d.x===ref.x&&d.y===ref.y)return;        // already heading there
+    if(d.x===-ref.x&&d.y===-ref.y)return;
+    if(d.x===ref.x&&d.y===ref.y)return;
     if(queue.length<2) queue.push(d);
   }
 
@@ -607,7 +690,15 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     dir=nextDir;
     const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
 
-    if(head.x<0||head.y<0||head.x>=COLS||head.y>=ROWS) return die('wall');
+    if(head.x<0||head.y<0||head.x>=COLS||head.y>=ROWS){
+      if(mode==='wrap'){
+        head.x=(head.x+COLS)%COLS;     // out the right, in on the left (and so on)
+        head.y=(head.y+ROWS)%ROWS;
+        blip(330,.06,'sine');
+      }else{
+        return die('wall');
+      }
+    }
     if(walls.some(w=>w.x===head.x&&w.y===head.y)) return die('block');
     if(snake.some((s,i)=>i<snake.length-1&&s.x===head.x&&s.y===head.y)) return die('self');
 
@@ -653,15 +744,16 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   function die(cause){
     state='over';shake=1;
     blip(150,.3,'sawtooth');
+    const where=levelName(level).toLowerCase()+' in '+(mode==='wrap'?'Wrap':'Walls');
     if(score>best){
       best=score;el.best.textContent=best;
-      try{localStorage.setItem('snake-best',String(best));}catch(e){}
+      saveBest();
       oTitle.textContent='New best';
-      oText.textContent=score+' points at '+levelName(level).toLowerCase()+'. Nothing has come closer.';
+      oText.textContent=score+' points at '+where+'. Nothing has come closer.';
     }else{
       oTitle.textContent = cause==='block' ? 'Straight into a block'
         : cause==='self' ? 'You ran into yourself' : 'That was the wall';
-      oText.textContent='You finished on '+score+' at '+levelName(level).toLowerCase()+(best?'. Best is '+best+'.':'.');
+      oText.textContent='You finished on '+score+' at '+where+(best?'. Best is '+best+'.':'.');
     }
     startBtn.textContent='Run it back';
     overlay.hidden=false;
@@ -693,6 +785,18 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
     const hi=css('--amber-050'),mid=css('--amber-400'),low=css('--amber-600');
     const sHi=css('--snake-hi'),sLo=css('--snake-lo');
     const e=progress>=1?1:progress;
+
+    /* open edges in Wrap mode: a soft dashed rim shows the walls are passable */
+    if(mode==='wrap'){
+      ctx.save();
+      ctx.strokeStyle=css('--green-300');
+      ctx.globalAlpha=.32+Math.sin(t/650)*.1;
+      ctx.lineWidth=2;
+      ctx.setLineDash([cell*.42,cell*.32]);
+      ctx.lineDashOffset=-t/60;
+      rr(4,4,size-8,size-8,Math.max(10,size*.05));ctx.stroke();
+      ctx.restore();
+    }
 
     /* blocks */
     walls.forEach(w=>{
@@ -742,12 +846,16 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
       ctx.restore();
     });
 
-    /* body: soft glow pass, then solid pass */
+    /* body */
     const n=snake.length;
     const pos=i=>{
       const s=snake[i],q=prev[Math.min(i,prev.length-1)]||s;
-      const jump=Math.abs(s.x-q.x)>1||Math.abs(s.y-q.y)>1;
-      return {x:jump?s.x:q.x+(s.x-q.x)*e, y:jump?s.y:q.y+(s.y-q.y)*e};
+      const jx=Math.abs(s.x-q.x)>1,jy=Math.abs(s.y-q.y)>1;
+      if((jx||jy)&&mode!=='wrap') return {x:s.x,y:s.y};
+      // in Wrap mode a segment that crossed an edge slides in from just outside the opposite edge
+      const qx=jx?(s.x>q.x?s.x+1:s.x-1):q.x;
+      const qy=jy?(s.y>q.y?s.y+1:s.y-1):q.y;
+      return {x:qx+(s.x-qx)*e, y:qy+(s.y-qy)*e};
     };
 
     ctx.save();
@@ -844,9 +952,12 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
               w:'up',s:'down',a:'left',d:'right',W:'up',S:'down',A:'left',D:'right'};
   document.addEventListener('keydown',ev=>{
     if(ev.key===' '){ev.preventDefault();flashKey('space');toggle();return;}
+    if(ev.key==='m'||ev.key==='M'){ev.preventDefault();setMode(mode==='walls'?'wrap':'walls');return;}
     const d=keys[ev.key];
     if(d){ev.preventDefault();setDir(d);}
   });
+
+  modeBtns.forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 
   document.querySelectorAll('.pad button').forEach(b=>
     b.addEventListener('click',()=>setDir(b.dataset.dir)));
